@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fêtes des prénoms — calendrier à ajouter ou télécharger</title>
+  <meta name="description" content="Le calendrier de toutes les fêtes des prénoms. Ajoutez-le à Google Agenda, Apple Calendar ou Outlook, ou téléchargez-le au format ICS." />
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --ink: #1b2432;
+      --muted: #667085;
+      --brand: #3457d5;
+      --brand-dark: #2740a8;
+      --border: #e5e8ef;
+      --ok: #10804a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; }
+    header { text-align: center; margin-bottom: 32px; }
+    .cal-emoji { font-size: 52px; line-height: 1; }
+    h1 { font-size: 30px; margin: 14px 0 8px; }
+    header p { color: var(--muted); margin: 0; font-size: 17px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, .04);
+    }
+    .card h2 { margin: 0 0 6px; font-size: 19px; }
+    .card p.hint { color: var(--muted); margin: 0 0 16px; font-size: 15px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--brand);
+      background: var(--brand);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+    .btn:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+    .btn.secondary {
+      background: #fff;
+      color: var(--brand);
+    }
+    .btn.secondary:hover { background: #f0f3ff; }
+    .url-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .url-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      font-size: 14px;
+      color: var(--ink);
+      background: #fbfcfe;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .url-row button {
+      flex: 0 0 auto;
+      padding: 0 16px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .url-row button:hover { background: #f0f3ff; }
+    ol { margin: 0; padding-left: 20px; color: var(--muted); }
+    ol li { margin-bottom: 6px; }
+    ol code {
+      background: #eef1f7;
+      padding: 1px 6px;
+      border-radius: 5px;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    details { margin-top: 10px; }
+    summary { cursor: pointer; font-weight: 600; color: var(--brand); }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 32px;
+    }
+    footer a { color: var(--brand); }
+    .badge {
+      display: inline-block;
+      background: #eef2ff;
+      color: var(--brand);
+      border-radius: 999px;
+      padding: 3px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="cal-emoji">📅</div>
+      <h1>Fêtes des prénoms</h1>
+      <p>Un prénom fêté chaque jour de l'année, dans votre agenda.</p>
+    </header>
+
+    <div class="card">
+      <span class="badge">Recommandé</span>
+      <h2>Ajouter à Google Agenda</h2>
+      <p class="hint">
+        Le calendrier reste synchronisé : chaque mise à jour est reprise
+        automatiquement, et les fêtes se répètent tous les ans.
+      </p>
+      <a id="googleBtn" class="btn" href="#" target="_blank" rel="noopener">
+        Ajouter à Google Agenda
+      </a>
+      <details>
+        <summary>Ajout manuel (si le bouton ne fonctionne pas)</summary>
+        <ol style="margin-top:12px">
+          <li>Sur ordinateur, ouvrez <code>Google Agenda</code>.</li>
+          <li>À gauche, à côté de « Autres agendas », cliquez sur <code>+</code>.</li>
+          <li>Choisissez <code>À partir de l'URL</code>.</li>
+          <li>Collez l'URL du calendrier (ci-dessous) puis « Ajouter ».</li>
+        </ol>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Apple Calendar / Outlook</h2>
+      <p class="hint">
+        S'abonner par URL fonctionne aussi sur iPhone, Mac et Outlook.
+      </p>
+      <a id="webcalBtn" class="btn secondary" href="#">S'abonner (webcal)</a>
+      <div class="url-row">
+        <input id="urlInput" type="text" readonly value="" />
+        <button id="copyBtn" type="button">Copier</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Télécharger le fichier .ics</h2>
+      <p class="hint">
+        Import ponctuel dans n'importe quel agenda (le fichier ne se met pas à
+        jour tout seul).
+      </p>
+      <a class="btn secondary" href="calendrier-prenoms.ics" download>
+        Télécharger le calendrier (.ics)
+      </a>
+    </div>
+
+    <footer>
+      Calendrier français des fêtes des prénoms — 366 jours, mise à jour annuelle
+      automatique.<br />
+      Généré à partir de données ouvertes. Contenu librement réutilisable.
+    </footer>
+  </div>
+
+  <script>
+    // ─────────────────────────────────────────────────────────────────
+    // URL publique où ce calendrier est hébergé.
+    // Elle est détectée automatiquement à partir de l'adresse de la page.
+    // Pour forcer une URL, remplacez la ligne ci-dessous par :
+    //   const ICS_URL = "https://mon-domaine.fr/calendrier-prenoms.ics";
+    // ─────────────────────────────────────────────────────────────────
+    const ICS_URL = new URL("calendrier-prenoms.ics", window.location.href).href;
+
+    const webcalUrl = ICS_URL.replace(/^https?:/, "webcal:");
+    const googleUrl =
+      "https://calendar.google.com/calendar/r?cid=" +
+      encodeURIComponent(webcalUrl);
+
+    document.getElementById("urlInput").value = ICS_URL;
+    document.getElementById("webcalBtn").href = webcalUrl;
+    document.getElementById("googleBtn").href = googleUrl;
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("copyBtn");
+      try {
+        await navigator.clipboard.writeText(ICS_URL);
+      } catch (e) {
+        const input = document.getElementById("urlInput");
+        input.select();
+        document.execCommand("copy");
+      }
+      const prev = btn.textContent;
+      btn.textContent = "Copié ✓";
+      setTimeout(() => (btn.textContent = prev), 1800);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "calendrier-prenoms",
+  "version": "1.0.0",
+  "description": "Calendrier des fêtes des prénoms : fichier .ics à ajouter à Google Agenda ou à télécharger.",
+  "scripts": {
+    "build": "node src/generate-ics.js",
+    "test": "node test/validate.js"
+  },
+  "license": "MIT",
+  "private": true
+}
