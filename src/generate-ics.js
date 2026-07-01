@@ -91,7 +91,9 @@ function buildIcs() {
   lines.push("VERSION:2.0");
   lines.push("PRODID:-//quelprenom.com//Calendrier des fetes des prenoms//FR");
   lines.push("CALSCALE:GREGORIAN");
-  lines.push("METHOD:PUBLISH");
+  // Pas de propriété METHOD : sa présence (ex. METHOD:PUBLISH) fait que Google
+  // Agenda traite le fichier comme un message d'invitation (iTIP) et refuse de
+  // l'importer. Un calendrier destiné à l'abonnement/import ne doit pas en avoir.
   lines.push(`X-WR-CALNAME:${escapeText(CALENDAR_NAME)}`);
   lines.push(`NAME:${escapeText(CALENDAR_NAME)}`);
   lines.push(`X-WR-CALDESC:${escapeText(CALENDAR_DESC)}`);

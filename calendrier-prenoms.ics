@@ -2,7 +2,6 @@ BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//quelprenom.com//Calendrier des fetes des prenoms//FR
 CALSCALE:GREGORIAN
-METHOD:PUBLISH
 X-WR-CALNAME:Fêtes des prénoms
 NAME:Fêtes des prénoms
 X-WR-CALDESC:Calendrier des fêtes des prénoms (calendrier français des s
