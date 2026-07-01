@@ -81,9 +81,10 @@ function nextDay(year, month, day) {
 }
 
 function buildIcs() {
-  const now = new Date();
-  const stamp =
-    now.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+  // Horodatage fixe : le calendrier est un contenu statique et reproductible.
+  // Utiliser l'heure courante rendrait chaque génération différente (et casserait
+  // la vérification « le .ics commité est-il à jour »).
+  const stamp = `${ANCHOR_YEAR}0101T000000Z`;
 
   const lines = [];
   lines.push("BEGIN:VCALENDAR");
