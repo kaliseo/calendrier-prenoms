@@ -14,31 +14,32 @@ toutes les années à venir.
 | --- | --- |
 | `src/prenoms.js` | Données : un ou plusieurs prénoms par jour (366 jours). |
 | `src/generate-ics.js` | Génère le fichier `.ics` à partir des données. |
-| `public/index.html` | Page web : « Ajouter à Google Agenda » et téléchargement. |
-| `public/calendrier-prenoms.ics` | Le calendrier généré (hébergé tel quel). |
+| `index.html` | Page web : « Ajouter à Google Agenda » et téléchargement. |
+| `calendrier-prenoms.ics` | Le calendrier généré (servi tel quel). |
 | `test/validate.js` | Vérifie la validité du `.ics`. |
-| `.github/workflows/deploy.yml` | Régénère et publie sur GitHub Pages. |
+| `.github/workflows/deploy.yml` | Régénère et vérifie le `.ics` à chaque push. |
 
 ## Générer le calendrier
 
 ```bash
-node src/generate-ics.js      # écrit public/calendrier-prenoms.ics
+node src/generate-ics.js      # écrit calendrier-prenoms.ics (à la racine)
 node test/validate.js         # vérifie le fichier
 ```
 
 ## Hébergement
 
-Le dossier `public/` est un site statique. N'importe quel hébergeur convient
-(GitHub Pages, Netlify, un simple serveur web…). Il faut deux URL publiques :
+Le site est statique (fichiers à la racine du dépôt). N'importe quel hébergeur
+convient (GitHub Pages, Netlify, un simple serveur web…). Il faut deux URL
+publiques :
 
 - la page : `.../index.html`
 - le calendrier : `.../calendrier-prenoms.ics`
 
-### Avec GitHub Pages (automatique)
+### Avec GitHub Pages
 
-Le workflow `deploy.yml` régénère le `.ics` et publie `public/` à chaque push
-sur `main`. Activez ensuite Pages dans **Settings → Pages → Source : GitHub
-Actions**. Le site sera servi sur :
+Ce dépôt est configuré en **Settings → Pages → Source : « Deploy from a branch »
+→ `main` / `(root)`**. GitHub sert alors directement les fichiers de la racine
+sur :
 
 ```
 https://<utilisateur>.github.io/calendrier-prenoms/
@@ -46,6 +47,10 @@ https://<utilisateur>.github.io/calendrier-prenoms/
 
 La page détecte automatiquement sa propre URL : les boutons « Ajouter à Google
 Agenda » et « S'abonner » pointent vers le bon `.ics` sans configuration.
+
+Le workflow `deploy.yml` ne déploie pas (c'est GitHub Pages qui s'en charge) : il
+régénère le `.ics` à chaque push et échoue si le fichier commité n'est plus à
+jour par rapport aux données.
 
 ## Comment les utilisateurs l'ajoutent
 

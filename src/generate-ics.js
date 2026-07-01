@@ -138,7 +138,7 @@ function main() {
   const outArg = process.argv[2];
   const outPath = outArg
     ? path.resolve(outArg)
-    : path.resolve(__dirname, "..", "public", "calendrier-prenoms.ics");
+    : path.resolve(__dirname, "..", "calendrier-prenoms.ics");
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   const ics = buildIcs();

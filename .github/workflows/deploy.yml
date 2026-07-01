@@ -1,41 +1,32 @@
-name: Déploiement GitHub Pages
+name: Vérification du calendrier
+
+# GitHub Pages sert directement les fichiers de la racine de la branche `main`
+# (mode « Deploy from a branch »). Ce workflow ne déploie donc pas : il régénère
+# le .ics et vérifie qu'il est valide et bien à jour par rapport aux données.
 
 on:
   push:
     branches: ["main", "claude/nameday-calendar-url-k2xl9w"]
+  pull_request:
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  build:
+  verifier:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Générer le fichier .ics
+      - name: Régénérer le fichier .ics
         run: node src/generate-ics.js
       - name: Vérifier le calendrier
         run: node test/validate.js
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: public
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Vérifier que le .ics commité est à jour
+        run: |
+          if ! git diff --quiet -- calendrier-prenoms.ics; then
+            echo "::error::calendrier-prenoms.ics n'est pas à jour. Lancez 'node src/generate-ics.js' et committez."
+            git --no-pager diff -- calendrier-prenoms.ics
+            exit 1
+          fi
+          echo "✓ Le fichier .ics commité correspond aux données."
