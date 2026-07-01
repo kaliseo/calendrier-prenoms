@@ -2,7 +2,7 @@ name: Déploiement GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "claude/nameday-calendar-url-k2xl9w"]
   workflow_dispatch:
 
 permissions:
